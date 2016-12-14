@@ -1,0 +1,19 @@
+{
+    "name": "dmxl/laravel-baidu-voice",
+    "description": "Baidu Voice REST API wrapper for Laravel 5.3",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DMXL",
+            "email": "dm@sudo.team"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "BaiduVoice\\": "src/"
+        }
+    }
+}
