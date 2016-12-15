@@ -20,9 +20,11 @@ class LaravelBaiduVoiceServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('baiduvoice.php'),
-        ]);
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/config.php' => config_path('baiduvoice.php'),
+            ]);
+        }
     }
 
     /**
@@ -33,7 +35,7 @@ class LaravelBaiduVoiceServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/woocommerce.php', 'baiduvoice'
+            __DIR__ . '/../config/config.php', 'baiduvoice'
         );
 
         $this->app->singleton(['Dmxl\\LaravelBaiduVoice\\LaravelBaiduVoice' => 'baiduvoice'], function($app) {
