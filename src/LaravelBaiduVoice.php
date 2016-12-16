@@ -109,6 +109,6 @@ class LaravelBaiduVoice
 
         $response = json_decode($response, true);
 
-        return $response['result'][0];
+        return $response;
     }
 }
