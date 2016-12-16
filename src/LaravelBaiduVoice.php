@@ -2,6 +2,9 @@
 
 namespace Dmxl\LaravelBaiduVoice;
 
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
 class LaravelBaiduVoice
 {
     /**
@@ -27,6 +30,13 @@ class LaravelBaiduVoice
     private $token;
 
     /**
+     * Private instance of Logger that handles all logs.
+     *
+     * @var Logger
+     */
+    private $logger;
+
+    /**
      * Application constructor.
      *
      * @param array $config
@@ -35,6 +45,7 @@ class LaravelBaiduVoice
     {
         $this->config = $config;
         $this->token = $this->getToken();
+        $this->initLogger();
     }
 
     /**
@@ -61,6 +72,12 @@ class LaravelBaiduVoice
         $response = json_decode($response, true);
 
         return $response['access_token'];
+    }
+
+    private function initLogger()
+    {
+        $this->logger = new Logger('baiduvoice');
+        $this->logger->pushHandler(new StreamHandler(config('baiduvoice.log.file'), config('baiduvoice.log.level')));
     }
 
     /**
@@ -108,6 +125,7 @@ class LaravelBaiduVoice
         curl_close($ch);
 
         $response = json_decode($response, true);
+        $this->logger->debug('Recognized result:', $response);
 
         return $response;
     }
