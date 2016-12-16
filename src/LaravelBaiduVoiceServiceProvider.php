@@ -38,7 +38,7 @@ class LaravelBaiduVoiceServiceProvider extends ServiceProvider
             __DIR__ . '/../config/config.php', 'baiduvoice'
         );
 
-        $this->app->singleton([LaravelBaiduVoice::class => 'baiduvoice'], function($app) {
+        $this->app->singleton(['Dmxl\LaravelBaiduVoice\LaravelBaiduVoice' => 'baiduvoice'], function($app) {
             return new LaravelBaiduVoice(config('baiduvoice'));
         });
     }
