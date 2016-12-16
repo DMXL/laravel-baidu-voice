@@ -11,7 +11,7 @@ class LaravelBaiduVoiceServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = false;
+    protected $defer = true;
 
     /**
      * Bootstrap the application services.
@@ -20,11 +20,9 @@ class LaravelBaiduVoiceServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/config.php' => config_path('baiduvoice.php'),
-            ]);
-        }
+        $this->publishes([
+            __DIR__ . '/../config/config.php' => config_path('baiduvoice.php'),
+        ]);
     }
 
     /**
@@ -38,8 +36,20 @@ class LaravelBaiduVoiceServiceProvider extends ServiceProvider
             __DIR__ . '/../config/config.php', 'baiduvoice'
         );
 
-        $this->app->singleton(['Dmxl\LaravelBaiduVoice\LaravelBaiduVoice' => 'baiduvoice'], function($app) {
+        $this->app->singleton('Dmxl\LaravelBaiduVoice\LaravelBaiduVoice', function() {
             return new LaravelBaiduVoice(config('baiduvoice'));
         });
+
+        $this->app->alias('Dmxl\LaravelBaiduVoice\LaravelBaiduVoice', 'baiduvoice');
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['baiduvoice'];
     }
 }
