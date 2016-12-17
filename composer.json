@@ -10,6 +10,9 @@
             "email": "dm@sudo.team"
         }
     ],
+    "require": {
+        "monolog/monolog": "^1.17"
+    },
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {

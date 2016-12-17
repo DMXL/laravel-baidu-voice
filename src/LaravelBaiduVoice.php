@@ -15,6 +15,7 @@ class LaravelBaiduVoice
      */
     const QUERY_URL = 'http://vop.baidu.com/server_api';
     const BASE_AUTH_URL = 'https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials';
+
     /**
      * Configurations.
      *
